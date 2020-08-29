@@ -1,5 +1,5 @@
 class IntToRomanConverter {
-  Map<String, int> numerals = {
+  final Map<String, int> numerals = {
     'M': 1000,
     'CM': 900,
     'D': 500,
@@ -15,33 +15,33 @@ class IntToRomanConverter {
     'I': 1,
   };
 
-  int _remaining;
+  int _amountToConvert;
   String _roman = '';
 
-  IntToRomanConverter(this._remaining);
+  IntToRomanConverter(this._amountToConvert) {
+    _checkValidRange();
+  }
+
+  void _checkValidRange() {
+    if (_amountToConvert > 3999) {
+      throw Exception('No numbers greater than 3999 in the Roman system ¯\\_(ツ)_/¯');
+    } else if (_amountToConvert == 0) {
+      throw Exception('No zero in the Roman system ¯\\_(ツ)_/¯');
+    } else if (_amountToConvert < 0) {
+      throw Exception('No negatives in the Roman system ¯\\_(ツ)_/¯');
+    }
+  }
 
   String convert() {
-    checkIfInputIsInCorrectRange();
     for (int i = 0; i < numerals.length; i++) {
-      convertJust(numerals.keys.elementAt(i));
+      _convertPerFraction(numerals.keys.elementAt(i));
     }
     return _roman;
   }
 
-  void checkIfInputIsInCorrectRange() {
-    if (_remaining > 3999) {
-      throw Exception('Sorry, there are no numbers greater than 3999 in the Roman system ¯\\_(ツ)_/¯');
-    } else if (_remaining == 0) {
-      throw Exception('Sorry, there is no zero in the Roman system ¯\\_(ツ)_/¯');
-    } else if (_remaining < 0) {
-      throw Exception('Sorry, there are no negatives in the Roman system ¯\\_(ツ)_/¯');
-    }
-  }
-
-  void convertJust(String numeral) {
+  void _convertPerFraction(String numeral) {
     int fraction = numerals[numeral];
-    int times = (_remaining / fraction).floor();
-    _roman += numeral * times;
-    _remaining -= fraction * times;
+    _roman += numeral * (_amountToConvert / fraction).floor();
+    _amountToConvert %= fraction;
   }
 }
