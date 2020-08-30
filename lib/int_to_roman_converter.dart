@@ -1,5 +1,9 @@
+String intToRoman(int numberToConvert) {
+  return IntToRomanConverter(numberToConvert).convert();
+}
+
 class IntToRomanConverter {
-  final Map<String, int> numerals = {
+  static const Map<String, int> numerals = {
     'M': 1000,
     'CM': 900,
     'D': 500,
@@ -15,33 +19,33 @@ class IntToRomanConverter {
     'I': 1,
   };
 
-  int _amountToConvert;
+  int _amountLeft;
   String _roman = '';
 
-  IntToRomanConverter(this._amountToConvert) {
+  IntToRomanConverter(this._amountLeft) {
     _checkValidRange();
   }
 
   void _checkValidRange() {
-    if (_amountToConvert > 3999) {
+    if (_amountLeft > 3999) {
       throw Exception('No numbers greater than 3999 in the Roman system ¯\\_(ツ)_/¯');
-    } else if (_amountToConvert == 0) {
+    } else if (_amountLeft == 0) {
       throw Exception('No zero in the Roman system ¯\\_(ツ)_/¯');
-    } else if (_amountToConvert < 0) {
+    } else if (_amountLeft < 0) {
       throw Exception('No negatives in the Roman system ¯\\_(ツ)_/¯');
     }
   }
 
   String convert() {
     for (int i = 0; i < numerals.length; i++) {
-      _convertPerFraction(numerals.keys.elementAt(i));
+      _convertFraction(numerals.keys.elementAt(i));
     }
     return _roman;
   }
 
-  void _convertPerFraction(String numeral) {
+  void _convertFraction(String numeral) {
     int fraction = numerals[numeral];
-    _roman += numeral * (_amountToConvert / fraction).floor();
-    _amountToConvert %= fraction;
+    _roman += numeral * (_amountLeft / fraction).floor();
+    _amountLeft %= fraction;
   }
 }

@@ -18,19 +18,12 @@ void main() {
   });
 
   test('A bunch of numbers generated with random.org', () {
-    expect([
-      IntToRomanConverter(1337).convert(),
-      IntToRomanConverter(3115).convert(),
-      IntToRomanConverter(1171).convert(),
-      IntToRomanConverter(2744).convert(),
-      IntToRomanConverter(1291).convert(),
-      IntToRomanConverter(3500).convert(),
-      IntToRomanConverter(485).convert(),
-      IntToRomanConverter(378).convert(),
-      IntToRomanConverter(10).convert(),
-      IntToRomanConverter(70).convert(),
-      IntToRomanConverter(9).convert(),
-    ], [
+    List<int> toConvert = [1337, 3115, 1171, 2744, 1291, 3500, 485, 378, 10, 70, 9];
+    List<String> converted = [];
+    for (int i = 0; i < toConvert.length; i++) {
+      converted.add(intToRoman(toConvert[i]));
+    }
+    expect(converted, [
       'MCCCXXXVII', // 1337
       'MMMCXV', //     3115
       'MCLXXI', //     1171
