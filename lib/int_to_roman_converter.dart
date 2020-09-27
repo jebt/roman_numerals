@@ -49,3 +49,7 @@ class IntToRomanConverter {
     _amountLeft %= fraction;
   }
 }
+
+//todo: romanToInt()
+//todo: computeHashMap() or Map which is a LinkedHashMap //for lookup of all possible values
+//todo: compare to others online
